@@ -5,7 +5,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 const API_URL = import.meta.env.VITE_API_URL || 'https://danjitalk.duckdns.org';
 
 const api = axios.create({
-  baseURL: API_URL,
+  baseURL: '',
   withCredentials: true,
   headers: {
     'Content-Type': 'application/json',
