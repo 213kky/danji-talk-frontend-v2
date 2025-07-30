@@ -33,7 +33,7 @@ const SocialLoginList: React.FC = () => {
     if (provider === KAKAO_LOGIN_LABEL) {
       try {
         const apiBaseUrl = import.meta.env.VITE_API_URL || '';
-        const kakaoAuthUrl = `${apiBaseUrl}/oauth2/authorization/kakao`;
+        const kakaoAuthUrl = `${apiBaseUrl}/oauth2/authorization/kakao?origin=${encodeURIComponent(window.location.origin)}`;
 
         window.location.href = kakaoAuthUrl;
       } catch (error: unknown) {
