@@ -27,12 +27,12 @@ const OAuthRedirect = () => {
               }
             );
 
-            if (response.data.accessToken) {
+            if (response.status === 200) {
               // 토큰 저장
               setIsAuthenticated();
               navigate('/');
             } else {
-              console.error('토큰이 응답에 없습니다:', response.data);
+              console.error('로그인 실패');
               setTitle('로그인 실패');
               setContent('인증에 실패했습니다.');
               openAlert();
