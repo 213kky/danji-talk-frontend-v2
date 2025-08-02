@@ -40,17 +40,18 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose }) => {
 
   const handleLogout = async () => {
     try {
-      await axios.post('/api/logout'); // 서버 로그아웃 완료 기다림
+      const response = await axios.post('/api/logout'); // 서버 로그아웃 완료 기다림
+      const redirectUrl = response.headers['location']; // 또는 response.data.redirectUrl
+      handleClose();
+      setTimeout(() => {
+        logout();
+        navigate(redirectUrl || '/login');
+      }, 300);
     } catch (error) {
       console.error('로그아웃 실패:', error);
       // 실패 시에도 로컬 로그아웃 진행할지, 사용자에게 알릴지 결정 필요
     }
 
-    handleClose();
-    setTimeout(() => {
-      logout();
-      navigate('/login');
-    }, 300);
   };
 
   const handleLogin = () => {
