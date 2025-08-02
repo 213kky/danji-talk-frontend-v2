@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import styles from './Sidebar.module.scss';
 import { useAuthStore } from '../../stores/authStore';
 import { useSidebarStore } from '../../stores/sidebarStore';
+import axios from 'axios';
 
 interface SidebarProps {
   isOpen: boolean;
@@ -37,7 +38,14 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose }) => {
     };
   }, [isOpen, handleClose]);
 
-  const handleLogout = () => {
+  const handleLogout = async () => {
+    try {
+      await axios.post('/api/logout'); // 서버 로그아웃 완료 기다림
+    } catch (error) {
+      console.error('로그아웃 실패:', error);
+      // 실패 시에도 로컬 로그아웃 진행할지, 사용자에게 알릴지 결정 필요
+    }
+
     handleClose();
     setTimeout(() => {
       logout();
